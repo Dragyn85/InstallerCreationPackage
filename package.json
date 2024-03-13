@@ -1,5 +1,5 @@
 {
-  "name": "com.dragyngames.InstallerCreation",
+  "name": "com.dragyngames.installercreationpackage",
   "displayName": "Installer Creation",
   "version": "0.0.1",
   "description": "Asks if you want to create an installer for your game when you do a windows build. ",

@@ -13,13 +13,18 @@
 #expr FileClose(ProductNameFile)
 #undef ProductNameFile
 
+#define IDFile FileOpen("..\Builds\ApplicationID.txt")
+#define ApplicationID FileRead(IDFile)
+#expr FileClose(IDFile)
+#undef IDFile
+
 [Setup]
-AppId={{9A028370-217E-4701-B0B5-7989418B96EF}
+AppId={#ApplicationID}
 AppName={#ApplicationName}
 AppVersion={#ApplicationVersion}
 AppVerName={#ApplicationName} {#ApplicationVersion}
 AppPublisher={#ApplicationCompanyName}
-DefaultDirName={pf}\{#ApplicationCompanyName}\{#ApplicationName}
+DefaultDirName={commonpf}\{#ApplicationCompanyName}\{#ApplicationName}
 DisableProgramGroupPage=yes
 OutputDir=.\
 OutputBaseFilename={#ApplicationName}Setup-{#ApplicationVersion}
@@ -31,6 +36,7 @@ WizardSmallImageFile=Resources\banner.bmp
 WizardImageFile=Resources\welcome.bmp
 DirExistsWarning=no
 DisableWelcomePage=no
+SignedUninstaller=no
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -46,4 +52,3 @@ Filename: "{app}\InstallerApp.exe"; Description: "{cm:LaunchProgram, InstallerAp
 
 [Messages]
 SetupWindowTitle=Install - %1 - {#ApplicationVersion}
-WelcomeLable2=This will install [name/ver] on your computer. %n%n

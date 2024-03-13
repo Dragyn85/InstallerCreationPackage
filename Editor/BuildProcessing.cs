@@ -10,7 +10,7 @@ public class BuildProcessing : IPreprocessBuildWithReport, IPostprocessBuildWith
 {
     public int callbackOrder => 0;
 
-    [MenuItem("My Menu/QuickBuild")]
+    [MenuItem("Dragyn Games/QuickBuild")]
     static void QuickBuildMenuItem()
     {
         string buildPath = Path.Combine(Application.dataPath, "../Builds/");
@@ -37,9 +37,7 @@ public class BuildProcessing : IPreprocessBuildWithReport, IPostprocessBuildWith
         }
 
         var path = report.summary.outputPath;
-        ExportVersionFile(path);
-        ExportCompanyNameFile(path);
-        ExportProductNameFile(path);
+        ExportInstallerInfo(path);
 
         if (report.summary.platformGroup == BuildTargetGroup.Standalone)
         {
@@ -51,11 +49,15 @@ public class BuildProcessing : IPreprocessBuildWithReport, IPostprocessBuildWith
             {
                 RunInstallerCompiler();
             }
-
-            {
-            }
-            RunInstallerCompiler();
         }
+    }
+
+    private void ExportInstallerInfo(string path)
+    {
+        ExportVersionFile(path);
+        ExportCompanyNameFile(path);
+        ExportProductNameFile(path);
+        ExportApplicationID(path);
     }
 
     void IncrementBuildVersion()
@@ -77,6 +79,12 @@ public class BuildProcessing : IPreprocessBuildWithReport, IPostprocessBuildWith
         string buildpath = new FileInfo(outputPath).Directory.FullName;
         string versionPath = Path.Combine(buildpath, "Version.txt");
         File.WriteAllText(versionPath, PlayerSettings.bundleVersion);
+    }
+    void ExportApplicationID(string outputPath)
+    {
+        string buildpath = new FileInfo(outputPath).Directory.FullName;
+        string versionPath = Path.Combine(buildpath, "ApplicationID.txt");
+        File.WriteAllText(versionPath, PlayerSettings.applicationIdentifier);
     }
     void ExportCompanyNameFile(string outputPath)
     {
@@ -118,13 +126,20 @@ public class BuildProcessing : IPreprocessBuildWithReport, IPostprocessBuildWith
     private void CreateInstallerFolder(string installationPath)
     {
         Directory.CreateDirectory(installationPath);
+        
         string installerPath = Path.Combine(installationPath, "installer.iss");
-        File.WriteAllText(installerPath, "content");
+        using (StreamWriter fs = new StreamWriter(installerPath,false))
+        {
+            var templateStringPath = "Packages/com.dragyngames.installercreationpackage/InstallerTemplate/InstallerTemplate.txt";
+        
+            var asset = AssetDatabase.LoadAssetAtPath<TextAsset>(templateStringPath);
+            fs.Write(asset.text);
+        }
     }
 
     bool TryGetInnoSetupCompilerPath(out string path)
     {
-        RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Classes\InnoSetupScriptFile\shell\open\command");
+        Microsoft.Win32.RegistryKey key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Classes\InnoSetupScriptFile\shell\open\command");
         if (key != null)
         {
             string value = key.GetValue("") as string;
