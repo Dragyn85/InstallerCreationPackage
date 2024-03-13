@@ -3,8 +3,8 @@
   "displayName": "Installer Creation",
   "version": "0.0.1",
   "description": "Asks if you want to create an installer for your game when you do a windows build. ",
-  "documentationUrl": "https://github.com/Dragyn85/InGameDebugLoggs/blob/main/README.md",
-  "changelogUrl": "https://github.com/Dragyn85/InGameDebugLoggs/blob/main/CHANGELOG.md",
+  "documentationUrl": "https://github.com/Dragyn85/InstallerCreationPackage/blob/main/README.md",
+  "changelogUrl": "https://github.com/Dragyn85/InstallerCreationPackage/blob/main/CHANGELOG.md",
   "license": "MIT"
 }
 
