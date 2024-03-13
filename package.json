@@ -1,8 +1,8 @@
 {
-  "name": "com.dragyngames.debug",
-  "displayName": "In Game Logger",
-  "version": "0.0.3",
-  "description": "Get log messages in game, either with a UI or output to a file or both. Just pull the \"InGameLogger.prefab\" into a scene. Check out the documentation for more information ",
+  "name": "com.dragyngames.InstallerCreation",
+  "displayName": "Installer Creation",
+  "version": "0.0.1",
+  "description": "Asks if you want to create an installer for your game when you do a windows build. ",
   "documentationUrl": "https://github.com/Dragyn85/InGameDebugLoggs/blob/main/README.md",
   "changelogUrl": "https://github.com/Dragyn85/InGameDebugLoggs/blob/main/CHANGELOG.md",
   "license": "MIT"
